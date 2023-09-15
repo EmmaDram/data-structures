@@ -79,16 +79,13 @@ public class ListDemo
 
 
 
-        /* ConcurrentModificationException
-         * 
+        /* ConcurrentModificationException:
          * can't modify a linked list while also using an iterator
          * unless you use the iterator to do
          */
-
         iterator = staff.listIterator();//|DHAT
         while(iterator.hasNext())
         {
-
             String n = iterator.next();
             if (n.equals("Harry"))
             {
@@ -96,6 +93,17 @@ public class ListDemo
             }
         }
 
+        /* an enhanced for loop AUTOMATICALLY creates an iterator! 
+         * 
+         * following code will give us a ConcurrentModificationException
+        */
+        for(String n: staff)
+        {
+            if(n.equals("Harry"))
+            {
+                //staff.add("Charlie");
+            }
+        }
 
     }
 }
