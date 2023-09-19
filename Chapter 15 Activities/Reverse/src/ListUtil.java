@@ -13,20 +13,20 @@ public class ListUtil
     */
     public static void reverse(LinkedList<String> strings)
     {
-        //dick,harry,romeo,tom
-        ListIterator<String> iterator1, iterator2 = strings.listIterator();
+       
+        ListIterator<String> iterator1 = strings.listIterator();
+        String current;
 
-        int size = strings.size();
-
-        for(int i = 0; i < size; i++)
+        int key = 1;
+        while (iterator1.hasNext())
         {
-            iterator1 = strings.listIterator();
-            while(iterator1.hasNext())
-                iterator2.next();
-            iterator2.previous();
-
-            iterator1.set(iterator2.previous());
-            System.out.println(i + "\t" + strings + "\n");
+            
+            current = iterator1.next();//sets variable for current name
+            iterator1.remove();//removes name
+            iterator1 = strings.listIterator(0);//resets iterator
+            iterator1.add(current);//adds the name from previous variable to list
+            iterator1 = strings.listIterator(key);//resets iterator at new spot in list
+            key++;//increments counter
         }
 
     }
