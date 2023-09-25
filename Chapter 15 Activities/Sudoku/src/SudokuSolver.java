@@ -2,30 +2,36 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-public class SudokuSolver {
-    private final int M = 3;
-    private final int N = M * M;
-    private int[][] grid;
-    private ArrayList<Set<Integer>> rows;
-    private ArrayList<Set<Integer>> cols;
-    private ArrayList<Set<Integer>> squares;
-    private Set<Integer> nums;
+public class SudokuSolver
+{
+    private final int M = 3;//how many squares there are on one side (this is a 3 by 3 squares sudoku)
+    private final int N = M * M;//how many rows/columns there are
+    private int[][] grid;//2d array, read from file
+    private ArrayList<Set<Integer>> rows;//comprised of 9 sets
+    private ArrayList<Set<Integer>> cols;//comprised of 9 sets
+    private ArrayList<Set<Integer>> squares;//will store all the squares (should be 9 of them)
+    private Set<Integer> nums;//possible values of the numbers
 
-    public SudokuSolver(String fileName) {
+    public SudokuSolver(String fileName)
+    {
         // read the puzzle file
-        try (Scanner in = new Scanner(new File(fileName))) {
-
+        try (Scanner in = new Scanner(new File(fileName)))
+        {
             this.grid = new int[N][N];
 
-            for (int row = 0; row < N; row++) {
+            for (int row = 0; row < N; row++)
+            {
                 String line = in.next();
 
-                for (int col = 0; col < N; col++) {
+                for (int col = 0; col < N; col++)
+                {
                     String strVal = line.substring(col, col + 1);
                     int number;
-                    if (strVal.equals("x")) {
+                    if (strVal.equals("x"))
+                    {
                         number = 0;
-                    } else {
+                    } else
+                    {
                         number = Integer.parseInt(strVal);
                     }
                     this.grid[row][col] = number;
@@ -35,22 +41,58 @@ public class SudokuSolver {
             System.out.println("Cannot open: " + fileName);
         }
 
-        // create the list of sets for each row (this.rows)
-        // ...
+        //create the list of sets for each row (this.rows)
+        //each row will be its own set
+        this.rows = rows;
+        for(int j = 0; j < grid.length; j++)
+        {
+            Set<Integer> setRow = new HashSet<Integer>();
+            this.rows.add(setRow);
 
-        // create the list of sets for each col (this.cols)
-        // ...
+            for(int k = 0; k < grid[0].length; k++)
+            {
+                setRow.add(grid[j][0]);
+            }
+        }
 
-        // create the list of sets for each square (this.squares)
+        // create the list of sets for each col (this.cols)   //each column will be its own set
+        this.cols = cols;
+        for(int j = 0; j < grid.length; j++)
+        {
+            Set<Integer> setCols = new HashSet<Integer>();
+            this.cols.add(setCols);
+
+            for(int k = 0; k < grid[0].length; k++)
+            {
+                setCols.add(grid[0][k]);
+            }
+        }
+
+
+        // create the list of sets for each square (this.squares)   //create a set for all the individual squares
         /* the squares are added to the list row-by-row:
             0 1 2
             3 4 5
             6 7 8
          */
-        // ...
+        this.squares = squares;
+        for(int j = 0; j < grid.length; j++)
+        {
+            for(int k = 0; k < grid[0].length; k++)
+            {
+                //
+            }
+        }
 
-        // create a hash set for [1..9] (this.nums)
-        // ...
+        // create a hash set for [1..9] (this.nums)   //possible values for sudoku numbers
+        this.nums = nums;
+        for(int i = 1; i <= 9; i++)
+        {
+            nums.add(i);
+        }
+
+
+
 
         // visually inspect that all the sets are correct
         for (int row = 0; row < N; row++) {
@@ -65,6 +107,12 @@ public class SudokuSolver {
         System.out.println(this.nums);
     }
 
+
+
+
+    /*
+     * returns true if it has finished solving the puzzle
+     */
     public boolean solve() {
         // find an empty location, if any
         boolean finished = true;
@@ -81,7 +129,8 @@ public class SudokuSolver {
         }
 
         // the board is complete; we solved it
-        if (finished) {
+        if (finished)
+        {
             return true;
         }
 
@@ -90,6 +139,7 @@ public class SudokuSolver {
             Create a new set based on the this.nums and remove all elements in the sets
             corresponding to nextRow, nextCol, and the corresponding square (use the
             removeAll method).
+                                            //figure out how to calculate exactly where that square is, involves using the size of the m variable
 
             Properly indexing the squares list of sets is tricky. Verify that your
             algorithm is correct.
@@ -141,7 +191,7 @@ public class SudokuSolver {
     }
 
     public static void main(String[] args) {
-        String fileName = "src/puzzle1.txt";
+        String fileName = "Chapter 15 Activities/Sudoku/src/puzzle1.txt";
 
         SudokuSolver solver = new SudokuSolver(fileName);
         System.out.println(solver);
