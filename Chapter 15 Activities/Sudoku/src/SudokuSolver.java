@@ -41,31 +41,43 @@ public class SudokuSolver
             System.out.println("Cannot open: " + fileName);
         }
 
+
+
+
+
+
         //create the list of sets for each row (this.rows)
         //each row will be its own set
+        this.rows = new ArrayList<Set<Integer>>();
         this.rows = rows;
-        for(int j = 0; j < grid.length; j++)
+        for(int row = 0; row < this.grid.length; row++)
         {
             Set<Integer> setRow = new HashSet<Integer>();
-            this.rows.add(setRow);
 
-            for(int k = 0; k < grid[0].length; k++)
+            for(int col = 0; col < this.grid[0].length; col++)
             {
-                setRow.add(grid[j][0]);
+                setRow.add(this.grid[row][col]);
             }
+            this.rows.add(setRow);
         }
 
+
+
+
+
+
+
         // create the list of sets for each col (this.cols)   //each column will be its own set
+        this.cols = new ArrayList<Set<Integer>>();
         this.cols = cols;
-        for(int j = 0; j < grid.length; j++)
+        for(int j = 0; j < this.grid.length; j++)
         {
             Set<Integer> setCols = new HashSet<Integer>();
-            this.cols.add(setCols);
-
-            for(int k = 0; k < grid[0].length; k++)
+            for(int k = 0; k < this.grid[0].length; k++)
             {
-                setCols.add(grid[0][k]);
+                setCols.add(this.grid[0][k]);
             }
+            this.cols.add(setCols);
         }
 
 
@@ -75,16 +87,42 @@ public class SudokuSolver
             3 4 5
             6 7 8
          */
+        this.squares = new ArrayList<Set<Integer>>();
         this.squares = squares;
-        for(int j = 0; j < grid.length; j++)
+        Set<Integer> setSquares = new HashSet<Integer>();
+        
+        for(int j = 0; j < this.grid.length; j++)
         {
-            for(int k = 0; k < grid[0].length; k++)
+            for(int k = 0; k < this.grid[0].length; k++)
             {
-                //
+                if(k<3)
+                {
+                    setSquares.add(this.grid[j][k]); setSquares.add(this.grid[j][k+1]); setSquares.add(this.grid[j][k+2]);
+                    setSquares.add(this.grid[j+1][k]); setSquares.add(this.grid[j+1][k+1]); setSquares.add(this.grid[j+1][k+2]);
+                    setSquares.add(this.grid[j+2][k]); setSquares.add(this.grid[j+2][k+1]); setSquares.add(this.grid[j+2][k+2]);
+                    this.squares.add(setSquares);
+                }
+                else if(k<6)
+                {
+                    setSquares.add(this.grid[j][k]); setSquares.add(this.grid[j][k+1]); setSquares.add(this.grid[j][k+2]);
+                    setSquares.add(this.grid[j+1][k]); setSquares.add(this.grid[j+1][k+1]); setSquares.add(this.grid[j+1][k+2]);
+                    setSquares.add(this.grid[j+2][k]); setSquares.add(this.grid[j+2][k+1]); setSquares.add(this.grid[j+2][k+2]);
+                    this.squares.add(setSquares);
+                }
+                else if(k<9)
+                {
+                    setSquares.add(this.grid[j][k]); setSquares.add(this.grid[j][k+1]); setSquares.add(this.grid[j][k+2]);
+                    setSquares.add(this.grid[j+1][k]); setSquares.add(this.grid[j+1][k+1]); setSquares.add(this.grid[j+1][k+2]);
+                    setSquares.add(this.grid[j+2][k]); setSquares.add(this.grid[j+2][k+1]); setSquares.add(this.grid[j+2][k+2]);
+                    this.squares.add(setSquares);
+                break;
+                }
             }
+            break;
         }
 
         // create a hash set for [1..9] (this.nums)   //possible values for sudoku numbers
+        this.nums = new HashSet<Integer>();
         this.nums = nums;
         for(int i = 1; i <= 9; i++)
         {
@@ -96,14 +134,18 @@ public class SudokuSolver
 
         // visually inspect that all the sets are correct
         for (int row = 0; row < N; row++) {
-            System.out.println("row " + row + ": " + this.rows.get(row));
+            //System.out.println("row " + row + ": " + this.rows.get(row));
+            System.out.print(this.rows.get(row));
         }
+        System.out.println();
         for (int col = 0; col < N; col++) {
-            System.out.println("col " + col + ": " + this.cols.get(col));
-        }
+            //System.out.println("col " + col + ": " + this.cols.get(col));
+            System.out.print(this.cols.get(col));
+        }System.out.println();
         for (int square = 0; square < N; square++) {
-            System.out.println("square " + square + ": " + this.squares.get(square));
-        }
+            //System.out.println("square " + square + ": " + this.squares.get(square));
+            System.out.print(this.squares.get(square));
+        }System.out.println();
         System.out.println(this.nums);
     }
 
