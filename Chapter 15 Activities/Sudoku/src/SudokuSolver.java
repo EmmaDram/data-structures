@@ -38,7 +38,7 @@ public class SudokuSolver
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Cannot open: " + fileName);
+            System.out.println("Unable to open: " + fileName);
         }
 
 
@@ -49,16 +49,20 @@ public class SudokuSolver
         //create the list of sets for each row (this.rows)
         //each row will be its own set
         this.rows = new ArrayList<Set<Integer>>();
-        this.rows = rows;
-        for(int row = 0; row < this.grid.length; row++)
+        int length = this.grid.length;
+        for(int add = 0; i < length; add++)
         {
-            Set<Integer> setRow = new HashSet<Integer>();
+            Set newSet = new HashSet<Integer>());
+            thisrows.add(newSet);
+        }
 
+        for(int row = 0; row < length; row++)
+        {
             for(int col = 0; col < this.grid[0].length; col++)
             {
-                setRow.add(this.grid[row][col]);
+                int addNum = this.grid[row][col];
+                this.rows.get(row).add(addNum);
             }
-            this.rows.add(setRow);
         }
 
 
@@ -69,18 +73,27 @@ public class SudokuSolver
 
         // create the list of sets for each col (this.cols)   //each column will be its own set
         this.cols = new ArrayList<Set<Integer>>();
-        this.cols = cols;
-        for(int j = 0; j < this.grid.length; j++)
+        int length = this.grid.length;
+        for(int add = 0; i < length; add++)
         {
-            Set<Integer> setCols = new HashSet<Integer>();
-            for(int k = 0; k < this.grid[0].length; k++)
+            Set newSet = new HashSet<Integer>());
+            this.rows.add(newSet);
+        }
+        for(int col = 0; col < length; col++)
+        {
+            for(int row = 0; col < this.grid[0].length; row++)
             {
-                setCols.add(this.grid[0][k]);
+                int addNum = this.grid[row][col];
+                this.rows.get(col).add(addNum);
             }
-            this.cols.add(setCols);
         }
 
 
+
+
+
+
+        
         // create the list of sets for each square (this.squares)   //create a set for all the individual squares
         /* the squares are added to the list row-by-row:
             0 1 2
@@ -88,39 +101,29 @@ public class SudokuSolver
             6 7 8
          */
         this.squares = new ArrayList<Set<Integer>>();
-        this.squares = squares;
-        Set<Integer> setSquares = new HashSet<Integer>();
-        
-        for(int j = 0; j < this.grid.length; j++)
-        {
-            for(int k = 0; k < this.grid[0].length; k++)
+        for(int add = 0; add < N; add++)
             {
-                if(k<3)
-                {
-                    setSquares.add(this.grid[j][k]); setSquares.add(this.grid[j][k+1]); setSquares.add(this.grid[j][k+2]);
-                    setSquares.add(this.grid[j+1][k]); setSquares.add(this.grid[j+1][k+1]); setSquares.add(this.grid[j+1][k+2]);
-                    setSquares.add(this.grid[j+2][k]); setSquares.add(this.grid[j+2][k+1]); setSquares.add(this.grid[j+2][k+2]);
-                    this.squares.add(setSquares);
-                }
-                else if(k<6)
-                {
-                    setSquares.add(this.grid[j][k]); setSquares.add(this.grid[j][k+1]); setSquares.add(this.grid[j][k+2]);
-                    setSquares.add(this.grid[j+1][k]); setSquares.add(this.grid[j+1][k+1]); setSquares.add(this.grid[j+1][k+2]);
-                    setSquares.add(this.grid[j+2][k]); setSquares.add(this.grid[j+2][k+1]); setSquares.add(this.grid[j+2][k+2]);
-                    this.squares.add(setSquares);
-                }
-                else if(k<9)
-                {
-                    setSquares.add(this.grid[j][k]); setSquares.add(this.grid[j][k+1]); setSquares.add(this.grid[j][k+2]);
-                    setSquares.add(this.grid[j+1][k]); setSquares.add(this.grid[j+1][k+1]); setSquares.add(this.grid[j+1][k+2]);
-                    setSquares.add(this.grid[j+2][k]); setSquares.add(this.grid[j+2][k+1]); setSquares.add(this.grid[j+2][k+2]);
-                    this.squares.add(setSquares);
-                break;
-                }
+                Set newSet = new HashSet<Integer>());
+                this.squares.add(newSet);
+            }//creates sets that will be populated in next for loop
+        for(int row = 0; row < length; row++)//adds values to the square set
+            {
+                for(int col = 0; col < length; col++)
+                    {
+                        int squareValue = ((row/3)*3) + (col/3);
+                        int addValue = this.grid[row][col];
+                        this.squares.get(square).add(addValue);
+                    }
             }
-            break;
-        }
 
+
+
+
+
+
+
+
+        
         // create a hash set for [1..9] (this.nums)   //possible values for sudoku numbers
         this.nums = new HashSet<Integer>();
         this.nums = nums;
@@ -128,49 +131,54 @@ public class SudokuSolver
         {
             nums.add(i);
         }
-
-
-
-
-        // visually inspect that all the sets are correct
-        for (int row = 0; row < N; row++) {
-            //System.out.println("row " + row + ": " + this.rows.get(row));
-            System.out.print(this.rows.get(row));
+        //displays the rows, columns, and square values
+    for (int row = 0; row < N; row++)
+        {
+            int rowNum = row + 1;
+            System.out.println("row " + rowNum + " = " + this.rows.get(row));
         }
-        System.out.println();
         for (int col = 0; col < N; col++) {
-            //System.out.println("col " + col + ": " + this.cols.get(col));
-            System.out.print(this.cols.get(col));
-        }System.out.println();
+            int colNum = col + 1;
+            System.out.println("col " + colNum + " = " + this.cols.get(col));
+        }
         for (int square = 0; square < N; square++) {
-            //System.out.println("square " + square + ": " + this.squares.get(square));
-            System.out.print(this.squares.get(square));
-        }System.out.println();
+            int squareNum = square + 1;
+            System.out.println("square " + squareNum + " = " + this.squares.get(square));
+        }
         System.out.println(this.nums);
     }
 
 
 
 
+
+
+
+
+    
     /*
      * returns true if it has finished solving the puzzle
      */
     public boolean solve() {
-        // find an empty location, if any
-        boolean finished = true;
+        boolean done = true;
         int nextRow = -1;
         int nextCol = -1;
-        for (int row = 0; row < N && finished; row++) {
-            for (int col = 0; col < N && finished; col++) {
+        for (int row = 0; row < N && done; row++) {
+            for (int col = 0; col < N && done; col++) {
                 if (this.grid[row][col] == 0) {
-                    finished = false;
+                    done = false;
                     nextRow = row;
                     nextCol = col;
                 }
             }
         }
 
-        // the board is complete; we solved it
+
+
+
+
+        
+        // solved
         if (finished)
         {
             return true;
@@ -187,30 +195,44 @@ public class SudokuSolver
             algorithm is correct.
          */
         Set<Integer> possibleNums = new HashSet<Integer>();
-        possibleNums.addAll(this.nums);
         
-        // ...
+        possibleNums.addAll(this.nums);
+        possibleNums.removeAll(this.rows.get(nextRow));
+        possibleNums.removeAll(this.cols.get(nextCol));
+        
+        int nextS;
+        
+        nextS = (nextRow / M) * M + (nextCol / M);
+        possibleNums.removeAll(this.squares.get(nextS));
 
-        // if there are no possible numbers, we cannot solve the board in its current state
+        // no possible nums = cannot solve board
         if (possibleNums.isEmpty()) {
             return false;
         }
 
         // try each possible number
-        for (Integer possibleNum : possibleNums) {
-            // update the grid and all three corresponding sets with possibleNum
+        for (Integer possibleVal : possibleNums) {
+            //update grid, all three corresponding sets with possibleVal
+            grid[nextRow][nextCol] = possibleVal;
+            this.rows.get(nextRow).add(possibleVal);
+            this.cols.get(nextCol).add(possibleVal);
+            this.squares.get(nextS).add(possibleVal);
             // ...
 
             // recursively solve the board
             if (this.solve()) {
-                // the board is solved!
+                //solved
                 return true;
             } else {
                 /*
-                 Undo the move before trying another possible number by setting the corresponding
+                 Undo the move, try another possible number by setting the corresponding
                  element in the grid back to 0 and removing possibleNum from all three corresponding
                  sets.
                  */
+                grid[nextRow][nextCol] = 0;
+                this.rows.get(nextRow).remove(possibleNum);
+                this.cols.get(nextCol).remove(possibleNum);
+                this.squares.get(nextS).remove(possibleNum);
                 // ...
             }
         }
@@ -220,12 +242,10 @@ public class SudokuSolver
 
     public String toString() {
         String str = "";
-
         for (int[] row : grid) {
             for (int val : row) {
                 str += val + "\t";
             }
-
             str += "\n";
         }
 
@@ -236,12 +256,13 @@ public class SudokuSolver
         String fileName = "Chapter 15 Activities/Sudoku/src/puzzle1.txt";
 
         SudokuSolver solver = new SudokuSolver(fileName);
-        System.out.println(solver);
+
+         System.out.println("FILE NAME = " + solver);
         if (solver.solve()) {
-            System.out.println("Solved!");
+            System.out.println("The board is solved. Congratulations!");
             System.out.println(solver);
         } else {
-            System.out.println("Unsolveable...");
+            System.out.println("The board is unsolvable... sorry!");
         }
     }
 }
