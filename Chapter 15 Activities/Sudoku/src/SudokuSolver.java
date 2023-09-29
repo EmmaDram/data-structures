@@ -50,10 +50,10 @@ public class SudokuSolver
         //each row will be its own set
         this.rows = new ArrayList<Set<Integer>>();
         int length = this.grid.length;
-        for(int add = 0; i < length; add++)
+        for(int add = 0; add < length; add++)
         {
-            Set newSet = new HashSet<Integer>());
-            thisrows.add(newSet);
+            Set newSet = new HashSet<Integer>();
+            this.rows.add(newSet);
         }
 
         for(int row = 0; row < length; row++)
@@ -73,10 +73,9 @@ public class SudokuSolver
 
         // create the list of sets for each col (this.cols)   //each column will be its own set
         this.cols = new ArrayList<Set<Integer>>();
-        int length = this.grid.length;
-        for(int add = 0; i < length; add++)
+        for(int add = 0; add < length; add++)
         {
-            Set newSet = new HashSet<Integer>());
+            Set newSet = new HashSet<Integer>();
             this.rows.add(newSet);
         }
         for(int col = 0; col < length; col++)
@@ -103,7 +102,7 @@ public class SudokuSolver
         this.squares = new ArrayList<Set<Integer>>();
         for(int add = 0; add < N; add++)
             {
-                Set newSet = new HashSet<Integer>());
+                Set newSet = new HashSet<Integer>();
                 this.squares.add(newSet);
             }//creates sets that will be populated in next for loop
         for(int row = 0; row < length; row++)//adds values to the square set
@@ -112,7 +111,7 @@ public class SudokuSolver
                     {
                         int squareValue = ((row/3)*3) + (col/3);
                         int addValue = this.grid[row][col];
-                        this.squares.get(square).add(addValue);
+                        this.squares.get(row).add(addValue);
                     }
             }
 
@@ -230,9 +229,9 @@ public class SudokuSolver
                  sets.
                  */
                 grid[nextRow][nextCol] = 0;
-                this.rows.get(nextRow).remove(possibleNum);
-                this.cols.get(nextCol).remove(possibleNum);
-                this.squares.get(nextS).remove(possibleNum);
+                this.rows.get(nextRow).remove(possibleVal);
+                this.cols.get(nextCol).remove(possibleVal);
+                this.squares.get(nextS).remove(possibleVal);
                 // ...
             }
         }
