@@ -10,11 +10,6 @@ public class Driveway
     private Stack<Integer> driveway;//Stack representing the cars in the driveway.
     private Stack<Integer> street;//Stack representing the cars in the street.
 
-
-
-
-
-
     /**
       * Constructor.
     */
@@ -24,12 +19,6 @@ public class Driveway
         street = new Stack<>();
     }
 
-
-
-
-
-
-    
 
     /**
       * Add the given license plate to the driveway.
@@ -50,11 +39,6 @@ public class Driveway
     }
 
 
-
-
-
-
-
     /**
       * Remove the given license plate from the driveway.
       *
@@ -66,7 +50,7 @@ public class Driveway
       if(driveway.contains(licensePlate))
       {
         //removes plates from driveway, adds to street, until reaches licenseplate to move
-        while(licensePlate!=driveway.pop())
+        while(licensePlate!=driveway.peek() && !(driveway.size()==0))
           {
             street.push(driveway.pop());
           }
@@ -74,6 +58,7 @@ public class Driveway
         driveway.pop();
         System.out.println("License removed!\n");
       }
+
       //only runs if the licenseplate isn't in the driveway
       else
       {
@@ -81,12 +66,6 @@ public class Driveway
       }
       
     }
-
-
-
-
-
-
 
 
     /**
@@ -101,6 +80,6 @@ public class Driveway
         System.out.println("In Street, starting at first in (one license plate per line):");
         // Print the cars in the street here
         System.out.println(street);
-
+        System.out.println("\n\n");
     }
 }

@@ -30,5 +30,6 @@ public class DrivewayDemo
             }
             System.out.print("\nLicense plate: ");
         }
+        
     }
 }
