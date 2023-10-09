@@ -1,3 +1,5 @@
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
@@ -59,44 +61,48 @@ public class ToDoList
      *
      * @param optionStr the option line
     */
-    public void addTask(String optionStr)
+    public void addTask(String optionStr) throws InputMismatchException
     {
 
-        // Complete this method
-        System.out.print("Task: ");
-        String task = in.nextLine();
-        //in.nextLine();
-        System.out.print("Priority: ");
-        int priority = in.nextInt();
+        Scanner words = new Scanner(optionStr);
+        
 
-        if(priority<1 || priority>9)
+        words.next();
+        String priority = words.next();
+        String task = words.nextLine();
+        int priority2 = 0;
+
+        if(priority.matches("[0-9]+"))
+        {
+            priority2 = Integer.parseInt(priority);
+        }
+        
+
+        if(priority2<1 || priority2>9)
         {
             System.out.println("The priority must be an integer between 1 and 9.");
         }
         else
         {
-            Task newTask = new Task(priority,task);
+            Task newTask = new Task(priority2,task);
             tasks.add(newTask);
         }
-        
-    }
+}
 
     /**
      * Get the next highest priority task and
      * display the description to the user.
     */
     public void nextTask()
-    {
-        Task next = null;
-        
-        next = tasks.remove();
-        
-        if (next == null)
+    {        
+        if (tasks.size() == 0)
         {
             System.out.println("There are no tasks in the list.");
-        } else
-        {
-            System.out.println(next.getDescription());
         }
+        else
+        {
+            System.out.println(tasks.remove().getDescription());
+        }
+    
     }
 }
