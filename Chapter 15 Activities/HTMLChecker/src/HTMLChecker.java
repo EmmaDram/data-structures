@@ -2,33 +2,54 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.Stack;
-/**
- * Write a program that checks whether a sequence of HTML tags
- * is properly nested. For each opening tag, such as <p>, there
- * must be a closing tag </p>. A tag such as <p> may have other
- * tags inside, for example <p> <ul> <li> </li> </ul> <a> </a> </p>
- * <p>
- * The inner tags must be closed before the outer ones.
- * Your program should process a file containing tags.
- * For simplicity, assume that the tags are separated by
- * spaces, and that there is no text inside the tags.
-*/
+
 public class HTMLChecker
-{
-    public static void main(String[] args)
+  {
+    public static void main (String[] args)
     {
-        String filename = "src/TagSample1.html";
+      //creates variables for files to be used:
+      //String file1 = "Chapter 15 Activities\\HTMLChecker\\src\\TagSample1.html";
+      //String file2 = "Chapter 15 Activities\\HTMLChecker\\src\\TagSample2.html";
+      String file3 = "Chapter 15 Activities\\HTMLChecker\\src\\TagSample3.html";
 
-        try (Scanner in = new Scanner(new File(filename)))
+      //runs as long as file is able to be found, prints error if file does not exist
+      try(Scanner in = newScanner(new File(file3)))
         {
-            // Your code goes here
-            . . .
+          Stack<String> tags = new Stack<>();//creates stack to hold tags from file
+          
+          String tag = in.next();
+          
+          tags.push(tag);//adds html tag from file to the stack
+          
+          while(in.hasNext())//runs as long as there is still text left in file
+            {
+              tag = in.next();//finds next tag from file
+              //checks that the 
+              String element = tags.lastElement().substring(1,tags.lastElement().length()))
+              if(tag.contains(element) && tag.contains("/"))
+              {
+                tags.pop();//removes html tag from the stack
+              }
+              else
+              {
+                tags.push(tag);//adds html tag to stack
+              }
+            }
 
-
-        } catch (FileNotFoundException e)
+          if(tags.size() >= 0)
+          {
+            System.out.println("Sequence is nested INCORRECTLY.");
+          }
+          else
+          {
+            System.out.println("Sequence is nested correctly!");
+          }
+          
+        } catch (FileNotFoundException error)
         {
-            System.out.println("Cannot open: " + filename);
+          System.out.println("ERROR: " + file3 + " is unable to be located.");
         }
-
     }
-}
+
+    
+  }
