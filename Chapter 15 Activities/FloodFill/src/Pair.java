@@ -1,21 +1,21 @@
 public class Pair
   {
-    private int val1;
-    private int val2;
+    private int row;
+    private int col;
 
-    public Pair(int num1, int num2)
+    public Pair(int x, int y)
     {
-      val1 = num1;
-      val2 = num2;
+      row = x;
+      col = y;
     }
 
     public int row()
     {
-      return val1;
+      return row;
     }
 
     public int column()
     {
-      return val2;
+      return col;
     }
   }
