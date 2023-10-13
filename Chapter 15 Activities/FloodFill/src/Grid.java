@@ -1,9 +1,11 @@
+import java.util.*;
+
 public class Grid
 {
     private static final int SIZE = 10;
     int[][] pixels = new int[SIZE][SIZE];
     
-    Stack <PairClass> pair = new Stack<>(); //stack that holds all the pairclass values
+    Stack <Pair> stack = new Stack<>(); //stack that holds all the pairclass values
 
     /**
      * Flood fill, starting with the given row and column.
@@ -12,37 +14,65 @@ public class Grid
     {
         int count = 1;
         
-        PairClass start = new PairClass(row, column);
+        Pair start = new Pair(row, column);
         
-        pair = push(start);
+        stack.push(start);
 
         //runs as long as there is at least one value in pair stack
-        while(pair.size() >= 1)
+        while(!stack.empty())
             {
                 //will be used as a sort of "index" value for the stack
-                Pair index = pair.pop();
+                Pair index = stack.pop();
 
-                
-                if(pixels[index.row()][index.col()]==0)//checks for no color
+                //current pixel
+                if(pixels[index.row()][index.column()]==0)//checks for no color
                 {
-                    pixels[index.row()][index.col()] = count;
+                    pixels[index.row()][index.column()] = count;
                     count++;
                 }
-                if(index.row() + 1 < 10 && pixels[index.row() + i][index.col()] == 0)//moves onto next, checks for no color
+                
+                //north pixel
+                if(index.row() > 0)
                 {
-                    pair.push(new PairClass(index.row() + 1, index.col()));//adds new pair to stack
+                  int x = index.row() - 1;
+                  int y = index.column();
+                  if(pixels[x][y] == 0)
+                  {
+                    stack.push(new Pair(x,y));
+                  }
                 }
-                if(index.col() + 1 < 10 && pixels[index.row()][index.col() + 1] == 0)//moves onto next, checks for no color
+                
+                //east pixel
+                if(index.column() < SIZE - 1)
                 {
-                    pair.push(new PairClass(index.row(), index.col() + 1));//adds new pair to stack
+                  int x = index.row();
+                  int y = index.column() + 1;
+                  if(pixels[x][y] == 0)
+                  {
+                    stack.push(new Pair(x,y));
+                  }
                 }
-                if(index.row() - 1 > -1 && pixels[index.row() - 1][index.col()] == 0)//moves onto next, checks for no color
+                
+                //south pixel
+                if(index.row() < SIZE - 1)
                 {
-                    pair.push(new PairClass(index.row() - 1, index.col()));//adds new pair to stack
+                  int x = index.row() + 1;
+                  int y = index.column();
+                  if(pixels[x][y] == 0)
+                  {
+                    stack.push(new Pair(x,y));
+                  }
                 }
-                if(index.col() - 1 > -1 && pixels[index.row()][index.col() - 1] == 0)//moves onto next, checks for no color
+                
+                //west pixel
+                if(index.column() > 0)
                 {
-                    pair.push(new PairClass(index.row(), index.col() - 1));//adds new pair to stack
+                  int x = index.row();
+                  int y = index.column() - 1;
+                  if(pixels[x][y] == 0)
+                  {
+                    stack.push(new Pair(x,y));
+                  }
                 }
             }
     }
