@@ -8,48 +8,58 @@ public class HTMLChecker
     public static void main (String[] args)
     {
       //creates variables for files to be used:
-      //String file1 = "Chapter 15 Activities\\HTMLChecker\\src\\TagSample1.html";
-      //String file2 = "Chapter 15 Activities\\HTMLChecker\\src\\TagSample2.html";
-      String file3 = "Chapter 15 Activities\\HTMLChecker\\src\\TagSample3.html";
+      String testFile = "TagSample1.html";
+      //String testFile = "TagSample2.html";
+      //String testFile = "TagSample3.html";
 
       //runs as long as file is able to be found, prints error if file does not exist
-      try(Scanner in = newScanner(new File(file3)))
+      try(Scanner in = new Scanner(new File(testFile)))
         {
-          Stack<String> tags = new Stack<>();//creates stack to hold tags from file
+          //creates stack to hold tags from file
+          Stack<String> tags = new Stack<>();
           
           String tag = in.next();
+          //adds html tag from file to the stack
+          tags.push(tag);
           
-          tags.push(tag);//adds html tag from file to the stack
-          
-          while(in.hasNext())//runs as long as there is still text left in file
+          //runs as long as there is still text left in file
+          while(in.hasNext())
             {
-              tag = in.next();//finds next tag from file
-              //checks that the 
-              String element = tags.lastElement().substring(1,tags.lastElement().length()))
-              if(tag.contains(element) && tag.contains("/"))
+              //finds next tag from file
+              tag = in.next();
+              if(tag.contains("/"))
               {
-                tags.pop();//removes html tag from the stack
+                String matchingTag = tag.replace("/","");
+                if(matchingTag.equals(tags.peek()))
+                {
+                  //removes html tag from the stack
+                  tags.pop();
+                }
+                else
+                {
+                  // closing tag does not match the top of stack
+                  break;
+                }
               }
               else
               {
-                tags.push(tag);//adds html tag to stack
+                //adds html tag to stack
+                tags.push(tag);
               }
             }
 
-          if(tags.size() >= 0)
+          if(tags.size() > 0)
           {
-            System.out.println("Sequence is nested INCORRECTLY.");
-          }
+            System.out.println("Sequence in " + testFile + " is nested INCORRECTLY.");
+          } 
           else
           {
-            System.out.println("Sequence is nested correctly!");
+            System.out.println("Sequence in " + testFile + " is nested CORRECTLY");
           }
           
         } catch (FileNotFoundException error)
         {
-          System.out.println("ERROR: " + file3 + " is unable to be located.");
+          System.out.println("ERROR: " + testFile + " is unable to be located.");
         }
     }
-
-    
   }
