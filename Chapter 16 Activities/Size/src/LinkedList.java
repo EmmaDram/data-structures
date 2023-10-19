@@ -26,7 +26,11 @@ public class LinkedList
     */
     public int size()
     { 
-        if(first!=null)
+        if(first==null)
+        {
+            return 0;
+        }
+        else
         {
             int size = 0;
             ListIterator it = listIterator();
@@ -37,10 +41,7 @@ public class LinkedList
             
             return size;
         }
-        else
-        {
-            return 0;//throw new NoSuchElementException();
-        }
+            
     }
 
     /**
