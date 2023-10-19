@@ -88,6 +88,7 @@ public class LinkedList
 
 
 
+
     //Class Node
     //node is static because it does not need access to anything in linked list
     //more of a design choice, doesn't impact much
