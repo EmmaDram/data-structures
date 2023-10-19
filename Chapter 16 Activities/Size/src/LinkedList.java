@@ -39,7 +39,7 @@ public class LinkedList
         }
         else
         {
-            throw new NoSuchElementException();
+            return 0;//throw new NoSuchElementException();
         }
     }
 
