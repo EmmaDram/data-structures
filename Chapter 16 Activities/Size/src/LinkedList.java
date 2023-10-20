@@ -44,25 +44,7 @@ public class LinkedList
             
     }
 
-    private static int size(Node start)
-    {
-        int size = 0;
-        if(start==null)
-        {
-            return size;
-        }
-        else
-        {
-            ListIterator it = listIterator();
-            if(it.hasNext())
-            {
-                size++;
-                size();
-            }
-            size++;
-        }
-        return size;
-    }
+    
 
     /**
         Returns the first element in the linked list.
