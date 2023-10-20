@@ -26,23 +26,15 @@ public class LinkedList
     */
     private static int size(Node start)
     {
-        int size = 0;
-        if(start==null)
+        if(start == null)
         {
-            return size;
+            return 0;
         }
-        else
-        {
-            ListIterator it = listIterator();
-            if(it.hasNext())
-            {
-                size++;
-                size();
-            }
-            size++;
-        }
-        return size;
+
+        return 1 + size(start.next);
     }
+
+
 
 
     /**

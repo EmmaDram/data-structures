@@ -41,31 +41,7 @@ public class LinkedList
     */
     public boolean contains(Object obj)
     {
-        /* 
-           Add a method boolean contains(Object obj) that checks whether our LinkedList implementation contains a given object.
-           Implement this method by directly traversing the links, not by using an iterator.
-           Use the equals method to determine whether obj equals node.data for a given node.
-        */
-
-        if(first!=null)
-        {
-            while(size()!=0)
-            {
-                if(first.data!=obj)
-                {
-                    removeFirst();
-                }
-                else
-                {
-                    return true;
-                } 
-            }
-            return false;
-        }
-        else
-        {
-            throw new NoSuchElementException();
-        }
+        return contains(first,obj);
     }
     /**
         Checks if the given node or any in its following nodes contains the given object.
@@ -74,20 +50,17 @@ public class LinkedList
     */
     public static boolean contains(Node start, Object obj)
     {
-        while(first!=null)
-            {
-            if(obj.data!=first.data)
-                {
-                    removeFirst();
-                    contains(start,obj);
-                }
-            else
-            {
-                return true;
-            }
-            }
-        return false;
+        if((start==null)||(obj==null))
+        {
+            return false;
+        }
+        if(start.data.equals(obj))
+        {
+            return true;
+        }
+        return contains(start.next,obj);
     }
+
 
     /**
         Returns the first element in the linked list.
