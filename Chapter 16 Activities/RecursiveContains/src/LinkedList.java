@@ -51,7 +51,19 @@ public class LinkedList
     */
     public static boolean contains(Node start, Object obj)
     {
-        // ...
+        while(first!=null)
+            {
+            if(obj.data!=first.data)
+                {
+                    removeFirst();
+                    contains(start,obj);
+                }
+            else
+            {
+                return true;
+            }
+            }
+        return false;
     }
 
     /**
