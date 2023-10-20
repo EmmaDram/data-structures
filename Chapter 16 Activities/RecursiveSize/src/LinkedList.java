@@ -24,9 +24,24 @@ public class LinkedList
         Computes the size of the linked list.
         @return the number of elements in the list
     */
-    public int size()
+    private static int size(Node start)
     {
-        . . .
+        int size = 0;
+        if(start==null)
+        {
+            return size;
+        }
+        else
+        {
+            ListIterator it = listIterator();
+            if(it.hasNext())
+            {
+                size++;
+                size();
+            }
+            size++;
+        }
+        return size;
     }
 
 
