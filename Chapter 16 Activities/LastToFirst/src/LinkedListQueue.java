@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 /**
     Add a method lastToFirst to this implementation of a queue.
     The method moves the element at the tail of the queue
@@ -7,6 +9,7 @@ public class LinkedListQueue
 {
     private Node head;
     private Node tail;
+    private LinkedList temporary = new LinkedList();
 
     /**
         Constructs an empty queue.
@@ -22,12 +25,25 @@ public class LinkedListQueue
     */
     public void lastToFirst()
     {
-        . . .
+        if(this.empty())
+        {
+            throw new NoSuchElementException();
+        }
+        else
+        {
+            Object moveToFirst = this.remove();//variable to move to front
 
-
-
-
-
+            while(!this.empty())//creates temporary linked list with all the objects of the current linked list
+            {
+                this.temporary.addFirst(this.remove());//adds in reverse order, but list is identical to the original one by the time the while loop runs
+            }
+            this.temporary.addFirst(moveToFirst);//adds the node that was originally last to the front
+            
+            while(this.temporary.getFirst() != null)
+            {
+                this.add(this.temporary.removeFirst());
+            }
+        }
     }
 
     /**
