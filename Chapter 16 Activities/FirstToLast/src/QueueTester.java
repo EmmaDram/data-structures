@@ -10,11 +10,12 @@ public class QueueTester
         q.add("Diana");
         q.add("Harry");
         q.firstToLast();
+        System.out.print("\nOutput: ");
         while (!q.empty())
         {
             System.out.print(q.remove() + " ");
         }
         System.out.println();
-        System.out.println("Expected: Diana Harry Tom");
+        System.out.println("Expected: Diana Harry Tom\n");
     }
 }
