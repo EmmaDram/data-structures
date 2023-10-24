@@ -25,7 +25,8 @@ public class LinkedListQueue
     */
     public void firstToLast()
     {
-        if(this.empty())
+        //my solution:
+        /*if(this.empty())
         {
             throw new NoSuchElementException();
         }
@@ -34,6 +35,14 @@ public class LinkedListQueue
             Object moveToLast = this.head.data;
             this.remove();
             this.add(moveToLast);
+        }*/
+
+        //miller's solution:
+        if(head!=tail)
+        {
+            tail.next = head;
+            head = head.next;
+            tail.next.next = null;
         }
     }
 

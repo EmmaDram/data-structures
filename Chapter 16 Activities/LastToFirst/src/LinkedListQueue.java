@@ -25,7 +25,8 @@ public class LinkedListQueue
     */
     public void lastToFirst()
     {
-        if(this.empty())
+        //my solution (doesn't work):
+        /*if(this.empty())
         {
             throw new NoSuchElementException();
         }
@@ -42,6 +43,23 @@ public class LinkedListQueue
             while(this.temporary.getFirst() != null)
             {
                 this.add(this.temporary.removeFirst());
+            }
+        }*/
+
+        //miller's solution:
+        if(tail!=head)
+        {
+            Node check = head.next;
+            tail.next = head;
+            head = tail;
+            while(check!=null)
+            {
+                if(check.next==head)
+                {
+                    check.next = null;
+                    tail = check;
+                }
+                check = check.next;
             }
         }
     }
