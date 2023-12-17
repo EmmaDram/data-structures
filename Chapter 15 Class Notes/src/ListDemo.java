@@ -32,7 +32,7 @@ public class ListDemo
 
          /* next method also returns the element that the iterator is passing */
          String name = iterator.next(); //DH|RT
-         System.out.println(name + "\t(expected result: Harry)");
+         System.out.println(name + "\t(expected result: Harry)\n");
 
          /* add method for iterators inserts an element at the iterator position 
           * iterator is then positioned after the element that was added
@@ -49,7 +49,7 @@ public class ListDemo
          iterator.next();//DHJNR|T
          iterator.remove();//DHJN|T
 
-         System.out.println(staff + "\t(expected: [Diana, Harry, Juliet, Nina, Tom])");
+         System.out.println(staff + "\t(expected: [Diana, Harry, Juliet, Nina, Tom])\n");
 
          /* set method updates the element returned by the last call to
          * next or previous
@@ -62,6 +62,7 @@ public class ListDemo
           */
 
           iterator = staff.listIterator();//|DHJAT
+
         while (iterator.hasNext())
         {
             String n = iterator.next();
@@ -75,7 +76,7 @@ public class ListDemo
         {
             System.out.print(n + " ");
         }
-        System.out.println("Expected: Diana Harry Albert Tom");
+        System.out.println("Expected: Diana Harry Albert Tom\n");
 
 
 
