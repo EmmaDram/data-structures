@@ -71,9 +71,12 @@ public class MorseCode
      */
     private static void addSymbol(char letter, String code)
     {
-        /*
-            !!! INSERT CODE HERE
-        */
+        System.out.println("Letter: " + letter + ", code: " + code);
+        // add the letter in the encoding map
+        codeMap.put(letter, code);
+
+        // add the letter in the encoding tree
+        treeInsert(letter, code);
     }
 
     /**
@@ -85,9 +88,34 @@ public class MorseCode
      */
     private static void treeInsert(char letter, String code)
     {
-        /*
-            !!! INSERT CODE HERE
-        */
+        TreeNode crtNode = decodeTree;
+        for (int i = 0; i < code.length(); i++)
+        {
+            //check the left and right child based on the current letter
+            if(code.charAt(i) == '.')
+            {
+                if(crtNode.getLeft() == null)
+                {
+                    TreeNode leftChild = new TreeNode(' ', null, null);  // autoboxing
+                    crtNode.setLeft(leftChild);
+                }
+                crtNode = crtNode.getLeft();
+            }
+            else if (code.charAt(i) == '-')
+            {
+                if(crtNode.getRight() == null)
+                {
+                    TreeNode rightChild = new TreeNode(' ', null, null);  // autoboxing
+                    crtNode.setRight(rightChild);
+                }
+                crtNode = crtNode.getRight();
+            }
+            else
+            {
+                System.out.println("Invalid character: " + code.charAt(i));
+            }
+        }
+        crtNode.setValue(letter);        
     }
 
     /**
@@ -100,9 +128,28 @@ public class MorseCode
     {
         StringBuffer morse = new StringBuffer(400);
 
-        /*
-            !!! INSERT CODE HERE
-        */
+        for (int i = 0; i < text.length(); i++) 
+        {
+            // we only have codes for upper case chars
+            char crtChar = Character.toUpperCase(text.charAt(i));
+            if((i > 0) && (crtChar != ' ')) 
+            {
+                morse.append(" ");
+            }
+
+            if(crtChar == ' ') 
+            {
+                morse.append(" ");
+                continue;
+            }
+            String code = codeMap.get(crtChar);
+            if(code == null) 
+            {
+                throw new RuntimeException("Cannot find Morse code for character: " + crtChar);
+            }
+
+            morse.append(code);
+        }
 
         return morse.toString();
     }
@@ -117,9 +164,49 @@ public class MorseCode
     {
         StringBuffer text = new StringBuffer(100);
 
-        /*
-            !!! INSERT CODE HERE
-        */
+        TreeNode currentNode = null;
+        for (int i = 0; i < morse.length(); i++)
+        {
+            char crtChar = Character.toUpperCase(morse.charAt(i));
+            if(crtChar == ' ') 
+            {
+                // this is an extra space outside a decoding code 
+                if(currentNode == null)
+                {
+                    text.append(" ");
+                }
+                else 
+                {
+                    text.append(currentNode.getValue());
+                    currentNode = null;
+                }
+            }
+            else
+            {
+                if(currentNode == null)
+                {
+                    currentNode = decodeTree;
+                }
+
+                if(crtChar == '.') 
+                {
+                    currentNode = currentNode.getLeft();
+                }
+                else if(crtChar == '-') 
+                {
+                    currentNode = currentNode.getRight();
+                } 
+                else
+                {
+                    throw new RuntimeException("Invalid character: " + crtChar);
+                }
+            }
+        }
+
+        if(currentNode != null)
+        {
+            text.append(currentNode.getValue());
+        }
 
         return text.toString();
     }
